@@ -5,7 +5,7 @@
  * usable with this module. Users with gravatars can have a default image of your selection.
  *
  * [ref-gravatar]: http://en.gravatar.com/
- * 
+ *
  * @package     Gravatar for Kohana PHP 3
  * @author      Sam C. De Freyssinet
  * @copyright   (c) 2009 De Freyssinet
@@ -151,8 +151,8 @@ class Gravatar {
 	 * If $var is a method then this will call it, else it will
 	 * set the attribute $key = $value
 	 *
-	 * @param string $key 
-	 * @param string $value 
+	 * @param string $key
+	 * @param string $value
 	 * @return void
 	 * @author Sam Clark
 	 */
@@ -282,12 +282,13 @@ class Gravatar {
 		if (isset($email))
 			$this->email($email);
 
-		$data = array('src' => array('src' => $this->_generate_url()));
+		$data = array('attr' => array(), 'src' => $this->_generate_url());
 
-		if ($this->_attributes)
-			$data['src'] += $this->_attributes;
+        if ($this->_attributes)
+            $data['attr'] += $this->_attributes;
 
-		$data['alt'] = $this->_process_alt();
+        $data['attr']['alt'] = $this->_process_alt();
+
 
 		return (string) $view ? new View($view, $data) : new View($this->_config['view'], $data);;
 	}
@@ -329,7 +330,7 @@ class Gravatar {
 
 		if ( ! empty($this->_config['default']))
 			$string .= '&d='.$this->_config['default'];
-		
+
 		return $string;
 	}
 }
